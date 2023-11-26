@@ -1,10 +1,8 @@
-import React, {
-    useState,
-    useEffect
-} from 'react';
+import React, {useState, useEffect } from 'react';
 import Input from './input';
 import Button from './Button';
-import authService from '../authService'; // Make sure the route is correct
+import authService from '../authService'; 
+
 
 const LoginForm = () => {
         const [email, setEmail] = useState('');
@@ -24,6 +22,7 @@ const LoginForm = () => {
                 setError(null);
 
                 // Call the authentication service
+
                 await authService.signInWithEmailAndPassword(email, password);
 
                 // If the login is successful, you could redirect to another page or perform other actions
@@ -40,7 +39,7 @@ const LoginForm = () => {
                 setLoading(true);
                 setError(null);
 
-                await authService.signInWithGoogle();
+                await authService.signInWithEmailAndPassword(email, password);
 
                 // Here you could redirect or perform specific actions after login
             } catch (error) {
@@ -81,18 +80,30 @@ const LoginForm = () => {
         };
 
         return ( 
-        <div>
+        <div className="form-container">
          <h2>Login</h2>
-         <Input type = "email" placeholder = "Enter your email" onChange = {(e) => setEmail(e.target.value)}/>
+         <div className="input-group">
+            <Input type = "email" placeholder = "Enter your email" onChange = {(e) => setEmail(e.target.value)}/>
+         </div>
+         
+         <div className = "input-group" >
          <Input type = "password" placeholder = "Enter your password" onChange = {(e) => setPassword(e.target.value)}/>
-         <Button onClick = {handleLogin} disabled = {loading}>{loading ? 'Logging In...' : 'Login'}
-         </Button>
-         <Button onClick = {handleGoogleLogin} disabled = {loading}>{loading ? 'Logging In...' : 'Login with Google'}
-         </Button>
-         <Button onClick = {handleFacebookLogin}disabled = {loading}>{loading ? 'Logging In...' : 'Login with Facebook'}
-         </Button>
-         <Button onClick = {handleGitHubLogin} disabled = {loading}>{loading ? 'Logging In...' : 'Login with GitHub'}
-         </Button> 
+         </div>
+         
+         <div className="button-group">
+            <Button onClick = {handleLogin} disabled = {loading}>{loading ? 'Logging In...' : 'Login'}
+            </Button>
+            {" "}
+            <Button onClick = {handleGoogleLogin} disabled = {loading}>{loading ? 'Logging In...' : 'Login with Google'}
+            </Button>
+            {" "}
+            <Button onClick = {handleFacebookLogin} disabled = {loading}>{loading ? 'Logging In...' : 'Login with Facebook'}
+            </Button>
+            {" "}
+            <Button onClick = {handleGitHubLogin} disabled = {loading}>{loading ? 'Logging In...' : 'Login with GitHub'}
+            </Button> 
+         </div>
+         
          {error && <p style = {{ color: 'red' }}>{error}</p>}
         </div>
     );
