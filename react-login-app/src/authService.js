@@ -1,22 +1,24 @@
 import { signInWithEmailAndPassword as signInWithEmailAndPasswordService } from 'firebase/auth';
 import firebase from './firebase';
+import { GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider } from 'firebase/auth';
+
 
 const signInWithEmailAndPassword = async (email, password) => {
         return signInWithEmailAndPasswordService(email, password);
     };
 
     const signInWithGoogle = async () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new GoogleAuthProvider();
         return firebase.auth().signInWithPopup(provider);
     };
 
     const signInWithFacebook = async () => {
-        const provider = new firebase.auth.FacebookAuthProvider();
+        const provider = new FacebookAuthProvider();
         return firebase.auth().signInWithPopup(provider);
     };
 
     const signInWithGitHub = async () => {
-        const provider = new firebase.auth.GithubAuthProvider();
+        const provider = new GithubAuthProvider();
         return firebase.auth().signInWithPopup(provider);
     };
 
